@@ -1,5 +1,5 @@
 # 🖧 Enterprise Network Simulation (Cisco Packet Tracer)
-![Topology](images/topology.png)
+
 ## 📌 Overview
 
 This project demonstrates the design and implementation of a small enterprise network using Cisco Packet Tracer.
