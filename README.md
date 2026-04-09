@@ -3,7 +3,13 @@
 ## 📌 Overview
 
 This project demonstrates the design and implementation of a small enterprise network using Cisco Packet Tracer.
-It includes VLAN segmentation, inter-VLAN routing, and access control for improved network security.
+It includes VLAN segmentation, inter-VLAN routing, and access control to simulate a real-world network environment.
+
+---
+
+## 📸 Project Preview
+
+![Topology](images/topology.png)
 
 ---
 
@@ -19,6 +25,16 @@ Each department operates in its own isolated network.
 
 ---
 
+## 📊 Network Details
+
+| VLAN | Department | Network         |
+| ---- | ---------- | --------------- |
+| 10   | IT         | 192.168.10.0/24 |
+| 20   | HR         | 192.168.20.0/24 |
+| 30   | Sales      | 192.168.30.0/24 |
+
+---
+
 ## ⚙️ Features
 
 * VLAN segmentation for network isolation
@@ -30,7 +46,13 @@ Each department operates in its own isolated network.
 
 ## 🖼️ Network Topology
 
-![Topology](images/topology.png)
+The topology includes:
+
+* 1 Router
+* 1 Switch
+* 6 PCs (2 per department)
+
+Each VLAN is mapped to a specific department and subnet.
 
 ---
 
@@ -55,6 +77,40 @@ Each department operates in its own isolated network.
 
 ---
 
+## 🖥️ Example Configuration Snippets
+
+### Switch (VLAN & Trunk)
+
+```bash
+vlan 10
+vlan 20
+vlan 30
+
+interface fa0/7
+switchport mode trunk
+```
+
+### Router (Subinterfaces)
+
+```bash
+interface g0/0/0.10
+encapsulation dot1Q 10
+ip address 192.168.10.1 255.255.255.0
+
+interface g0/0/0.20
+encapsulation dot1Q 20
+ip address 192.168.20.1 255.255.255.0
+```
+
+### ACL
+
+```bash
+access-list 100 deny ip 192.168.20.0 0.0.0.255 192.168.10.0 0.0.0.255
+access-list 100 permit ip any any
+```
+
+---
+
 ## 🧪 Testing
 
 | Test    | Result    |
@@ -65,11 +121,24 @@ Each department operates in its own isolated network.
 
 ---
 
+## ⚠️ Challenges & Troubleshooting
+
+During this project, several issues were encountered:
+
+* Inter-VLAN communication initially failed due to missing trunk configuration
+* Router interface was down because `no shutdown` was not applied
+* ACL was first applied in the wrong direction, causing unexpected traffic blocking
+
+These issues helped me understand how to troubleshoot real-world networking problems.
+
+---
+
 ## 🧠 What I Learned
 
 * How VLANs isolate network traffic
 * How routers enable communication between VLANs
 * How ACLs enforce network security policies
+* How to debug network configuration issues
 
 ---
 
